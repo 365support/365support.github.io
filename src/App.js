@@ -6,6 +6,7 @@ import data from './data.js'
 import Product from './component/Product';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import ProductDetail from './component/ProductDetail';
+import Cart from './component/Cart';
 
 function App() {
 
@@ -27,8 +28,9 @@ function App() {
       </Navbar>
 
       <Routes>
-        <Route path="/" element={<Product shoes={shoes} setShoes={setShoes  }/>}/>
+        <Route path="/" element={<Product shoes={shoes} setShoes={setShoes}/>}/>
         <Route path="/detail/:id" element={<ProductDetail stock={stock} SetStock={SetStock} shoes={shoes}/>}/>
+        <Route path="/cart" element={<Cart/>}/>
         <Route path="*" element={<div>없는 페이지에요</div>}/>
       </Routes>
       

@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Nav } from 'react-bootstrap';
+import TabContent from './TabContent';
+import { CSSTransition } from 'react-transition-group';
+import './ProductDetail.css';
+
 
 function ProductDetail({shoes, stock, SetStock}) {
   let {id} = useParams();
@@ -8,6 +13,8 @@ function ProductDetail({shoes, stock, SetStock}) {
   });
 
   let [alert, setAlert] = useState(true);
+  let [tab, setTap] = useState(0);
+  let [cssSwitch, setCssSwitch] = useState(false);
 
   useEffect(()=>{
     let timer = setTimeout(()=>{ setAlert(false) },2000);
@@ -17,11 +24,16 @@ function ProductDetail({shoes, stock, SetStock}) {
   },[])
 
   let handleStockMinus = () => {
-    let newStock = [...stock]
+    let newStock = [...stock];
     if(newStock[findProduct.id] > 0){
-      newStock[findProduct.id] -= 1
+      newStock[findProduct.id] -= 1;
     }
-    SetStock(newStock)
+    SetStock(newStock);
+  }
+
+  let handleTabClick = (e) => {
+    setTap(e);
+    setCssSwitch(false);
   }
 
   return (
@@ -39,6 +51,21 @@ function ProductDetail({shoes, stock, SetStock}) {
           <button onClick={()=>handleStockMinus()} className="btn btn-danger">주문하기</button> 
         </div>
       </div>
+
+      <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">
+        <Nav.Item>
+          <Nav.Link eventKey="link-0" onClick={()=>handleTabClick(0)}>상품설명</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link-1" onClick={()=>handleTabClick(1)}>배송정보</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link-2" onClick={()=>handleTabClick(2)}>Option 3</Nav.Link>
+        </Nav.Item>
+      </Nav>
+      <CSSTransition in={cssSwitch} classNames="transition" timeout={500}>
+        <TabContent tab={tab} setCssSwitch={setCssSwitch}/>
+      </CSSTransition>
     </div> 
   );
 }
