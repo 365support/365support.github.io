@@ -1,11 +1,20 @@
-.main-bg{
+.start {
+  opacity: 0;
+}
+.end {
+  opacity: 1;
+  transition: opacity 0.5s;
+  /* opacity가 변경될 떄 0.5초에 걸쳐서 변경되게 함  */
+}
+
+.main-bg {
   height: 300px;
-  background-image: url('./img/bg.jpeg');
+  background-image: url("./img/bg.jpeg");
   background-position: center;
   background-size: cover;
 }
 
-.hide{
+.hide {
   display: none;
 }
 
